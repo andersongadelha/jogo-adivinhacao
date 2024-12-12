@@ -5,14 +5,17 @@ public class Main {
     public static void main(String[] args) {
         Random random = new Random();
         Scanner scanner = new Scanner(System.in);
-        final int FACIL = 10;
+
         int pontuacao = 0;
-        boolean continua = true;
-        System.out.println("Jogo do Adivinha!");
+        int dificuldade;
+        boolean continua;
+        System.out.println("\n-------Jogo do Adivinha!-------\n");
+
+        dificuldade = getDificuldade(scanner);
 
         do {
-            int numeroSorteado = getNumeroSorteado(random, FACIL);
-            int palpite = getPalpite(scanner, FACIL);
+            int numeroSorteado = getNumeroSorteado(random, dificuldade);
+            int palpite = getPalpite(scanner, dificuldade);
 
             if (palpite == numeroSorteado) {
                 pontuacao = pontuacao + 10;
@@ -28,11 +31,44 @@ public class Main {
         } while (continua);
     }
 
+    private static int getDificuldade(Scanner scanner) {
+        int opcaoDificuldade;
+        boolean valido;
+        int dificuldade = 0;
+
+        do {
+            System.out.println("Escolha a dificuldade do jogo:");
+            System.out.println("1 - Fácil");
+            System.out.println("2 - Médio");
+            System.out.println("3 = Difícil");
+            opcaoDificuldade = scanner.nextInt();
+            if (opcaoDificuldade < 1 || opcaoDificuldade > 3) {
+                valido = false;
+            } else {
+                valido = true;
+            }
+        } while (!valido);
+
+        switch (opcaoDificuldade) {
+            case 1:
+                dificuldade = 10;
+                break;
+            case 2:
+                dificuldade = 50;
+                break;
+            case 3:
+                dificuldade = 100;
+                break;
+        }
+
+        return dificuldade;
+    }
+
     private static boolean verificaSeContinuaJogando(Scanner scanner) {
         boolean valido = false;
         boolean continua = false;
         scanner.nextLine();
-        
+
         do {
             System.out.println("Deseja jogar novamente? (S ou N)");
             String inputContinua = scanner.nextLine().trim().toUpperCase();
