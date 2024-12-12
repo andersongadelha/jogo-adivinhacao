@@ -1,34 +1,47 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Random random = new Random();
         Scanner scanner = new Scanner(System.in);
-
         int pontuacao = 0;
         int dificuldade;
+        List<Integer> numerosErrados = new ArrayList<>();
+        List<Integer> numerosAcertados = new ArrayList<>();
         boolean continua;
+
         System.out.println("\n-------Jogo do Adivinha!-------\n");
 
         dificuldade = getDificuldade(scanner);
 
         do {
-            int numeroSorteado = getNumeroSorteado(random, dificuldade);
+            int numeroSorteado = getNumeroSorteado(dificuldade);
             int palpite = getPalpite(scanner, dificuldade);
 
             if (palpite == numeroSorteado) {
                 pontuacao = pontuacao + 10;
+                numerosAcertados.add(numeroSorteado);
                 System.out.println("Acertou!");
             } else if (palpite + 1 == numeroSorteado || palpite - 1 == numeroSorteado) {
                 System.out.println("Quase...");
                 pontuacao = pontuacao + 5;
+                numerosErrados.add(numeroSorteado);
+            } else{
+                System.out.println("Errou...");
+                numerosErrados.add(numeroSorteado);
             }
             System.out.println("Sua pontuação atual:");
             System.out.println(pontuacao);
 
             continua = verificaSeContinuaJogando(scanner);
         } while (continua);
+
+        System.out.println("Fim de jogo!");
+        System.out.println("Pontuação final: " + pontuacao);
+        System.out.println("Números acertados: " + numerosAcertados);
+        System.out.println("Números errados: " + numerosErrados);
     }
 
     private static int getDificuldade(Scanner scanner) {
@@ -83,9 +96,11 @@ public class Main {
         return continua;
     }
 
-    private static int getNumeroSorteado(Random random, int FACIL) {
-        int numeroSorteado = random.nextInt(FACIL) + 1;
-        System.out.println(numeroSorteado);
+    private static int getNumeroSorteado(int dificuldade) {
+        Random random = new Random();
+        int numeroSorteado = random.nextInt(dificuldade) + 1;
+        System.out.println(numeroSorteado); //TODO: remover essa saida apos testes
+
         return numeroSorteado;
     }
 
