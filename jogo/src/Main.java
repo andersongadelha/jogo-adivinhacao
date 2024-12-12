@@ -98,10 +98,8 @@ public class Main {
 
     private static int getNumeroSorteado(int dificuldade) {
         Random random = new Random();
-        int numeroSorteado = random.nextInt(dificuldade) + 1;
-        System.out.println(numeroSorteado); //TODO: remover essa saida apos testes
 
-        return numeroSorteado;
+        return random.nextInt(dificuldade) + 1;
     }
 
     private static int getPalpite(Scanner scanner, int dificuldade) {
