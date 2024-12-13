@@ -20,18 +20,7 @@ public class Main {
             int numeroSorteado = getNumeroSorteado(dificuldade);
             int palpite = getPalpite(scanner, dificuldade);
 
-            if (palpite == numeroSorteado) {
-                pontuacao = pontuacao + 10;
-                numerosAcertados.add(numeroSorteado);
-                System.out.println("Acertou!");
-            } else if (palpite + 1 == numeroSorteado || palpite - 1 == numeroSorteado) {
-                System.out.println("Quase...");
-                pontuacao = pontuacao + 5;
-                numerosErrados.add(numeroSorteado);
-            } else{
-                System.out.println("Errou...");
-                numerosErrados.add(numeroSorteado);
-            }
+            pontuacao = verificaPalpite(palpite, numeroSorteado, pontuacao, numerosAcertados, numerosErrados);
             System.out.println("Sua pontuação atual:");
             System.out.println(pontuacao);
 
@@ -42,6 +31,22 @@ public class Main {
         System.out.println("Pontuação final: " + pontuacao);
         System.out.println("Números acertados: " + numerosAcertados);
         System.out.println("Números errados: " + numerosErrados);
+    }
+
+    private static int verificaPalpite(int palpite, int numeroSorteado, int pontuacao, List<Integer> numerosAcertados, List<Integer> numerosErrados) {
+        if (palpite == numeroSorteado) {
+            pontuacao = pontuacao + 10;
+            numerosAcertados.add(numeroSorteado);
+            System.out.println("Acertou!");
+        } else if (palpite + 1 == numeroSorteado || palpite - 1 == numeroSorteado) {
+            System.out.println("Quase...");
+            pontuacao = pontuacao + 5;
+            numerosErrados.add(numeroSorteado);
+        } else{
+            System.out.println("Errou...");
+            numerosErrados.add(numeroSorteado);
+        }
+        return pontuacao;
     }
 
     private static int getDificuldade(Scanner scanner) {
