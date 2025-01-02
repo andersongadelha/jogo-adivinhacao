@@ -4,6 +4,11 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
+    private static final Random RANDOM = new Random();
+    private static final int FACIL = 10;
+    private static final int MEDIO = 50;
+    private static final int DIFICIL = 100;
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int pontuacao = 0;
@@ -69,13 +74,13 @@ public class Main {
 
         switch (opcaoDificuldade) {
             case 1:
-                dificuldade = 10;
+                dificuldade = FACIL;
                 break;
             case 2:
-                dificuldade = 50;
+                dificuldade = MEDIO;
                 break;
             case 3:
-                dificuldade = 100;
+                dificuldade = DIFICIL;
                 break;
         }
 
@@ -102,9 +107,7 @@ public class Main {
     }
 
     private static int getNumeroSorteado(int dificuldade) {
-        Random random = new Random();
-
-        return random.nextInt(dificuldade) + 1;
+        return RANDOM.nextInt(dificuldade) + 1;
     }
 
     private static int getPalpite(Scanner scanner, int dificuldade) {
